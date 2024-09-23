@@ -1,0 +1,30 @@
+# Ignore the Dockerfile itself
+Dockerfile
+
+# Ignore the source control files
+.git
+.gitignore
+
+# Ignore build directories
+node_modules
+dist
+build
+
+# Ignore local configuration files
+.env
+*.local
+
+# Ignore logs
+*.log
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.swo
+
+# Ignore OS-generated files
+.DS_Store
+Thumbs.db
+
+# Ignore documentation
+docs/

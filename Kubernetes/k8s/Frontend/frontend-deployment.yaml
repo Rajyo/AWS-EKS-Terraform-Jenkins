@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vite-frontend
+  namespace: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vite-frontend
+  template:
+    metadata:
+      labels:
+        app: vite-frontend
+    spec:
+      containers:
+      - name: vite-frontend
+        image: prajyot7/todo-app-frontend:latest
+        ports:
+        - containerPort: 5173
+        env:
+        - name: VITE_SERVER_URL
+          value: http://your-domain.com:8000/api/todos

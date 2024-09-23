@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vite-frontend
+  namespace: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vite-frontend
+  template:
+    metadata:
+      labels:
+        app: vite-frontend
+    spec:
+      containers:
+      - name: vite-frontend
+        image: prajyot7/todo-app-frontend:latest
+        ports:
+        - containerPort: 5173
+        env:
+        - name: VITE_SERVER_URL
+          value: http://your-domain.com:8000/api/todos
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vite-frontend
+  namespace: todo-app
+spec:
+  ports:
+  - port: 5173
+    targetPort: 5173
+  selector:
+    app: vite-frontend
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: todo-app-ingress
+  namespace: todo-app
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/scheme: internet-facing
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: your-domain.com
+    http:
+      paths:
+      - path: /api/todos
+        pathType: Prefix
+        backend:
+          service:
+            name: express-backend
+            port:
+              number: 5000
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vite-frontend
+            port:
+              number: 5173
