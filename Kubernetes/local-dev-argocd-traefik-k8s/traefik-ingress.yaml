@@ -4,7 +4,9 @@ metadata:
   name: todo-app-ingress
   namespace: todo-app
   annotations:
+    kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
   ingressClassName: traefik
   rules:
   - host: your-domain.com
