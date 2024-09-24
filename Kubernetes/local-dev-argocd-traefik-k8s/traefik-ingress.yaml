@@ -26,7 +26,3 @@ spec:
             name: vite-frontend
             port:
               number: 5173
-providers:
-  kubernetesIngress:
-    publishedService:
-      enabled: true
